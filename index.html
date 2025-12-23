@@ -15,18 +15,20 @@ body {
   color: #fff;
   display:flex;
   justify-content:center;
-  align-items:center;
+  align-items:flex-start;
   min-height:100vh;
   text-align:center;
-  overflow:hidden;
+  overflow-x:hidden;
+  padding-top:40px;
 }
 
 .container{
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.7);
   padding:40px;
   border-radius:20px;
   box-shadow: 0 0 40px rgba(255,255,255,0.2);
   max-width:800px;
+  margin-bottom:40px;
   animation: fadeIn 1.5s ease forwards;
 }
 
@@ -39,6 +41,8 @@ h1,h2,h3{
 h1{font-size:2.2rem; color:#ff6f61;}
 h2{font-size:1.6rem; color:#ffb347;}
 h3{font-size:1.2rem; color:#ffd97d;}
+
+a{color:inherit; text-decoration:underline;}
 
 .buttons{
   margin-top:30px;
@@ -72,7 +76,11 @@ button:hover{
   color:#fff;
 }
 
-/* Cronómetro */
+#buyRights{
+  background:#00c6ff;
+  color:#000;
+}
+
 #countdown{
   font-size:2rem;
   margin-top:25px;
@@ -97,15 +105,41 @@ button:hover{
   50%{text-shadow: 0 0 20px #00ffe5;}
   100%{text-shadow: 0 0 5px #00ffe5;}
 }
+
+/* Sección comprar derechos */
+.rights-section{
+  background: rgba(0,0,0,0.6);
+  padding:30px;
+  border-radius:20px;
+  max-width:800px;
+  margin-bottom:40px;
+  box-shadow: 0 0 40px rgba(255,255,255,0.2);
+  animation: fadeIn 2s ease forwards;
+}
+
+.rights-section h2{
+  color:#ffb347;
+}
+
+.rights-section p{
+  font-size:1rem;
+  line-height:1.5;
+  color:#fff;
+  margin:15px 0;
+}
+
 </style>
 </head>
 <body>
 
 <div class="container">
   <h1>Esta página está suspendida hasta el 27 de enero de 2026. Gracias</h1>
-  <h2>Vista nuestra página oficial de contratos: <br> <a href="https://newBrothersStudios.com" target="_blank" style="color:#ffb347; text-decoration:underline;">newBrothersStudios.com</a>, será un gusto atenderle.</h2>
+  <h2>Vista nuestra página oficial de contratos: <br> 
+    <a href="https://newBrothersStudios.com" target="_blank">newBrothersStudios.com</a>, será un gusto atenderle.
+  </h2>
   <h3>Seguiremos trabajando en actividades de actualización de: <br>
-  <a href="https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/" target="_blank" style="color:#ffd97d; text-decoration:underline;">ROBUX_SHOPING.ORG</a> Gracias.</h3>
+    <a href="https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/" target="_blank">ROBUX_SHOPING.ORG</a> Gracias.
+  </h3>
 
   <div id="countdown"></div>
 
@@ -113,6 +147,13 @@ button:hover{
     <button id="exit" onclick="window.close()">Entendido (Salir)</button>
     <button id="visit" onclick="window.open('https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/', '_blank')">Visitar la otra página</button>
   </div>
+</div>
+
+<div class="rights-section">
+  <h2>Comprar derechos de la página ©️</h2>
+  <p>Al tocar el botón de compra obtendrás todos los derechos ©️ de esta página. Esto incluye todas las ganancias y la propiedad completa de todo el contenido.</p>
+  <p><strong>Precio de compra: $4,999</strong></p>
+  <button id="buyRights" onclick="alert('Está página al ser comprada obtendrás todos los derechos ©️ de la página, incluyendo las ganancias. Todo será tuyo.')">Comprar = $4,999</button>
 </div>
 
 <script>
@@ -140,19 +181,14 @@ function updateCountdown(){
 
 const interval = setInterval(updateCountdown, 1000);
 updateCountdown();
-</script>
 
-<script>
-// Bloquear recarga de página
+// Bloquear recarga y mostrar mensaje
 window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
     e.returnValue = "⚠️ No intentes Reiniciar la Página ⚠️";
-    // Este texto aparece en Chrome como aviso nativo
 });
 
-// Opcional: overlay para mensaje personalizado
 window.addEventListener("keydown", function(e){
-    // Evitar F5 o Ctrl+R
     if((e.key === "F5") || (e.ctrlKey && e.key === "r")){
         e.preventDefault();
         alert("⚠️ No intentes Reiniciar la Página ⚠️");
