@@ -2,33 +2,145 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Page is suspended</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Suspendida</title>
 <style>
-:root{
- --bg:#0b0b0b;
- --card:#161616;
- --orange:#ff8c00;
- --orange2:#ffae42;
- --red:#ff3b3b;
- --green:#2bff88;
- --blue:#2bb7ff;
- --yellow:#ffd52b;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+body {
+  margin:0;
+  padding:0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  text-align:center;
+  overflow:hidden;
 }
 
-*{box-sizing:border-box;font-family:system-ui}
-
-body{
- margin:0;
- background:linear-gradient(180deg,#000,#111);
- color:#fff;
+.container{
+  background: rgba(0,0,0,0.6);
+  padding:40px;
+  border-radius:20px;
+  box-shadow: 0 0 40px rgba(255,255,255,0.2);
+  max-width:800px;
+  animation: fadeIn 1.5s ease forwards;
 }
 
-<h1> Está página está suspendida hasta el 27 de enero de 2026. Gracias</h1>
+h1,h2,h3{
+  margin:20px 0;
+  line-height:1.4;
+  animation: slideIn 1.5s ease forwards;
+}
 
-<h2>vista nuestra página oficial de contratos
- newBrothersStudios.com, será un gusto atenderle.</h2>
+h1{font-size:2.2rem; color:#ff6f61;}
+h2{font-size:1.6rem; color:#ffb347;}
+h3{font-size:1.2rem; color:#ffd97d;}
 
-<h3> seguiremos trabajando en actividades de actualización de: 
-https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/ Gracias.</h3>
+.buttons{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
+
+button{
+  padding:14px 28px;
+  font-size:1rem;
+  font-weight:600;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover{
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255,255,255,0.4);
+}
+
+#exit{
+  background: #ff6f61;
+  color:#fff;
+}
+
+#visit{
+  background: #6a11cb;
+  color:#fff;
+}
+
+/* Cronómetro */
+#countdown{
+  font-size:2rem;
+  margin-top:25px;
+  font-weight:700;
+  color:#00ffe5;
+  animation: pulse 1.5s infinite;
+}
+
+/* Animaciones */
+@keyframes fadeIn{
+  from{opacity:0; transform: translateY(-20px);}
+  to{opacity:1; transform: translateY(0);}
+}
+
+@keyframes slideIn{
+  from{opacity:0; transform: translateX(-50px);}
+  to{opacity:1; transform: translateX(0);}
+}
+
+@keyframes pulse{
+  0%{text-shadow: 0 0 5px #00ffe5;}
+  50%{text-shadow: 0 0 20px #00ffe5;}
+  100%{text-shadow: 0 0 5px #00ffe5;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Esta página está suspendida hasta el 27 de enero de 2026. Gracias</h1>
+  <h2>Vista nuestra página oficial de contratos: <br> <a href="https://newBrothersStudios.com" target="_blank" style="color:#ffb347; text-decoration:underline;">newBrothersStudios.com</a>, será un gusto atenderle.</h2>
+  <h3>Seguiremos trabajando en actividades de actualización de: <br>
+  <a href="https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/" target="_blank" style="color:#ffd97d; text-decoration:underline;">ROBUX_SHOPING.ORG</a> Gracias.</h3>
+
+  <div id="countdown"></div>
+
+  <div class="buttons">
+    <button id="exit" onclick="window.close()">Entendido (Salir)</button>
+    <button id="visit" onclick="window.open('https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/', '_blank')">Visitar la otra página</button>
+  </div>
+</div>
+
+<script>
+// Cronómetro hasta el 27 de enero de 2026
+const targetDate = new Date("Jan 27, 2026 00:00:00").getTime();
+
+function updateCountdown(){
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  if(diff <= 0){
+    document.getElementById("countdown").innerHTML = "¡La página ya está disponible!";
+    clearInterval(interval);
+    return;
+  }
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
+  const minutes = Math.floor((diff % (1000*60*60))/(1000*60));
+  const seconds = Math.floor((diff % (1000*60))/1000);
+
+  document.getElementById("countdown").innerHTML = 
+    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+const interval = setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
