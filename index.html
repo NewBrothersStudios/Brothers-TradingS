@@ -4,219 +4,206 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Página Suspendida</title>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
-body {
-  margin:0;
-  padding:0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
-  color: #fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  min-height:100vh;
-  text-align:center;
-  overflow-x:hidden;
+body{
+margin:0;
+font-family:Poppins,sans-serif;
+background:linear-gradient(135deg,#1f1c2c,#928dab);
+color:#fff;
+display:flex;
+flex-direction:column;
+align-items:center;
+min-height:100vh;
+text-align:center;
 }
 
 .container{
-  background: rgba(0,0,0,0.7);
-  padding:30px 20px;
-  border-radius:20px;
-  box-shadow: 0 0 40px rgba(255,255,255,0.2);
-  max-width:90%;
-  margin-top:40px;
-  animation: fadeIn 1.5s ease forwards;
+margin-top:40px;
+background:rgba(0,0,0,.7);
+padding:30px 20px;
+border-radius:20px;
+max-width:90%;
+box-shadow:0 0 40px rgba(255,255,255,.2);
+animation:fadeIn 1.2s ease;
 }
 
-h1,h2,h3{
-  margin:15px 0;
-  line-height:1.4;
+h1{color:#ff6f61;font-size:1.8rem}
+h2{color:#ffb347;font-size:1.2rem}
+h3{color:#ffd97d;font-size:1rem}
+
+a{color:#fff}
+
+#countdown{
+margin-top:20px;
+font-size:1.8rem;
+font-weight:700;
+color:#00ffe5;
+animation:pulse 1.5s infinite;
 }
-
-h1{font-size:1.8rem; color:#ff6f61;}
-h2{font-size:1.3rem; color:#ffb347;}
-h3{font-size:1rem; color:#ffd97d;}
-
-a{color:inherit; text-decoration:underline; word-break: break-word;}
 
 .buttons{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  flex-wrap: wrap;
+margin-top:20px;
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
 }
 
 button{
-  padding:12px 20px;
-  font-size:1rem;
-  font-weight:600;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+padding:12px 20px;
+border:none;
+border-radius:14px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
 }
 
-button:hover{
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+button:hover{transform:scale(1.05)}
+
+#exit{background:#ff6f61;color:#fff}
+#visit{background:#6a11cb;color:#fff}
+
+/* BURBUJA */
+.buy-bubble{
+position:fixed;
+bottom:20px;
+right:20px;
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+padding:16px;
+border-radius:30px;
+max-width:260px;
+box-shadow:0 0 25px rgba(0,200,255,.6);
+animation:bounce 2s infinite alternate;
+cursor:pointer;
+z-index:9999;
 }
 
-#exit{
-  background: #ff6f61;
-  color:#fff;
+.buy-bubble h4,.buy-bubble p{margin:0;color:#fff}
+
+/* MODAL */
+.modal{
+position:fixed;
+top:0;left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:10000;
 }
 
-#visit{
-  background: #6a11cb;
-  color:#fff;
+.modal-content{
+background:#111;
+padding:25px;
+border-radius:20px;
+max-width:90%;
+animation:zoomIn .5s ease;
 }
 
-#countdown{
-  font-size:1.8rem;
-  margin-top:20px;
-  font-weight:700;
-  color:#00ffe5;
-  animation: pulse 1.5s infinite;
+.modal-content h3{color:#00ffe5}
+.modal-content p{font-size:.9rem}
+
+.buy-btn{
+background:gold;
+color:#000;
+margin-top:15px;
+width:100%;
 }
 
-/* Animaciones */
-@keyframes fadeIn{
-  from{opacity:0; transform: translateY(-20px);}
-  to{opacity:1; transform: translateY(0);}
+.loading{
+margin-top:10px;
+font-weight:700;
+color:#00ffe5;
+display:none;
 }
 
-@keyframes pulse{
-  0%{text-shadow: 0 0 5px #00ffe5;}
-  50%{text-shadow: 0 0 20px #00ffe5;}
-  100%{text-shadow: 0 0 5px #00ffe5;}
-}
-
-/* BURBUJA FLOTA COMPRA DERECHOS */
-.buy-bubble {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  max-width: 260px;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  color: #000;
-  padding: 16px 18px;
-  border-radius: 30px;
-  box-shadow: 0 0 25px rgba(0,200,255,0.6);
-  cursor: pointer;
-  font-weight: 600;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap:8px;
-  z-index: 9999;
-  animation: bubbleBounce 2s infinite alternate;
-}
-
-.buy-bubble h4{
-  margin:0;
-  font-size:1rem;
-  color:#fff;
-}
-
-.buy-bubble p{
-  font-size:0.85rem;
-  color:#fff;
-  line-height:1.2;
-}
-
-.buy-bubble button{
-  padding:8px 16px;
-  font-size:0.9rem;
-  font-weight:700;
-  border:none;
-  border-radius:16px;
-  background:#ffeb3b;
-  color:#000;
-  cursor:pointer;
-  align-self:flex-end;
-  transition: transform 0.2s;
-}
-
-.buy-bubble button:hover{
-  transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(255,235,59,0.6);
-}
-
-@keyframes bubbleBounce{
-  from{transform: translateY(0);}
-  to{transform: translateY(-10px);}
-}
-
+/* ANIMACIONES */
+@keyframes fadeIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1}}
+@keyframes pulse{0%{text-shadow:0 0 5px}50%{text-shadow:0 0 20px}}
+@keyframes bounce{to{transform:translateY(-10px)}}
+@keyframes zoomIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 </style>
 </head>
+
 <body>
 
 <div class="container">
-  <h1>Esta página está suspendida hasta el 27 de enero de 2026. Gracias</h1>
-  <h2>Vista nuestra página oficial de contratos: <br> 
-    <a href="https://newBrothersStudios.com" target="_blank">newBrothersStudios.com</a>, será un gusto atenderle.
-  </h2>
-  <h3>Seguiremos trabajando en actividades de actualización de: <br>
-    <a href="https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/" target="_blank">ROBUX_SHOPING.ORG</a> Gracias.
-  </h3>
+<h1>Esta página está suspendida hasta el 27 de enero de 2026</h1>
+<h2>Visita nuestra web oficial:<br>
+<a href="https://newBrothersStudios.com" target="_blank">newBrothersStudios.com</a>
+</h2>
+<h3>
+Seguimos trabajando en:<br>
+<a href="https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/" target="_blank">ROBUX_SHOPING.ORG</a>
+</h3>
 
-  <div id="countdown"></div>
+<div id="countdown"></div>
 
-  <div class="buttons">
-    <button id="exit" onclick="window.close()">Entendido (Salir)</button>
-    <button id="visit" onclick="window.open('https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/', '_blank')">Visitar la otra página</button>
-  </div>
+<div class="buttons">
+<button id="exit" onclick="history.back()">Entendido</button>
+<button id="visit" onclick="window.open('https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/')">
+Visitar página
+</button>
+</div>
 </div>
 
-<!-- Burbuja flotante comprar derechos -->
-<div class="buy-bubble" onclick="alert('Está página al ser comprada obtendrás todos los derechos ©️ de la página, incluyendo todas las ganancias. Todo será tuyo.')">
-  <h4>🗨️ Comprar derechos de la página ©️</h4>
-  <p>Al tocar el botón de compra obtendrás todos los derechos de esta página, incluyendo todas las ganancias y la propiedad completa de todo el contenido.</p>
-  <button>Comprar = $4,999</button>
+<!-- BURBUJA -->
+<div class="buy-bubble" onclick="openModal()">
+<h4>🗨️ Comprar derechos ©️</h4>
+<p>Propiedad total + ganancias</p>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<h3>Comprar derechos ©️</h3>
+<p>
+Al comprar esta página obtendrás <b>TODOS los derechos ©️</b>,
+incluyendo ganancias y propiedad total.
+</p>
+<p><b>Precio: $4,500 DLS</b></p>
+
+<button class="buy-btn" onclick="buy()">> Comprar <</button>
+<div class="loading" id="loading">Cargando.</div>
+</div>
 </div>
 
 <script>
-// Cronómetro hasta el 27 de enero de 2026
-const targetDate = new Date("Jan 27, 2026 00:00:00").getTime();
+// CONTADOR
+const targetDate=new Date("Jan 27, 2026 00:00:00").getTime();
+setInterval(()=>{
+let now=new Date().getTime(),d=targetDate-now;
+if(d<=0)return;
+let days=Math.floor(d/86400000);
+document.getElementById("countdown").innerHTML=`${days} días restantes`;
+},1000);
 
-function updateCountdown(){
-  const now = new Date().getTime();
-  const diff = targetDate - now;
-
-  if(diff <= 0){
-    document.getElementById("countdown").innerHTML = "¡La página ya está disponible!";
-    clearInterval(interval);
-    return;
-  }
-
-  const days = Math.floor(diff / (1000*60*60*24));
-  const hours = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
-  const minutes = Math.floor((diff % (1000*60*60))/(1000*60));
-  const seconds = Math.floor((diff % (1000*60))/1000);
-
-  document.getElementById("countdown").innerHTML = 
-    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+// MODAL
+function openModal(){
+document.getElementById("modal").style.display="flex";
 }
 
-const interval = setInterval(updateCountdown, 1000);
-updateCountdown();
+function buy(){
+const loading=document.getElementById("loading");
+loading.style.display="block";
+let dots=1;
+const interval=setInterval(()=>{
+loading.innerText="Cargando"+". ".repeat(dots);
+dots=dots<3?dots+1:1;
+},700);
 
-// Bloquear recarga y mostrar mensaje
-window.addEventListener("beforeunload", function (e) {
-    e.preventDefault();
-    e.returnValue = "⚠️ No intentes Reiniciar la Página ⚠️";
-});
-
-window.addEventListener("keydown", function(e){
-    if((e.key === "F5") || (e.ctrlKey && e.key === "r")){
-        e.preventDefault();
-        alert("⚠️ No intentes Reiniciar la Página ⚠️");
-    }
-});
+setTimeout(()=>{
+clearInterval(interval);
+window.open(
+"https://wa.me/50379197720?text=Quiero%20comprar%20Todos%20los%20derechos%20de%20la%20página%20por%20$4,500",
+"_blank"
+);
+},5000);
+}
 </script>
 
 </body>
