@@ -30,7 +30,7 @@ box-shadow:0 0 40px rgba(255,255,255,.2);
 animation:fadeIn 1.2s ease;
 }
 
-h1{color:#ff6f61;font-size:1.8rem}
+h1{color:#ff6f61;font-size:1.7rem}
 h2{color:#ffb347;font-size:1.2rem}
 h3{color:#ffd97d;font-size:1rem}
 
@@ -38,8 +38,8 @@ a{color:#fff}
 
 #countdown{
 margin-top:20px;
-font-size:1.8rem;
-font-weight:700;
+font-size:1.4rem;
+font-weight:800;
 color:#00ffe5;
 animation:pulse 1.5s infinite;
 }
@@ -55,13 +55,13 @@ justify-content:center;
 button{
 padding:12px 20px;
 border:none;
-border-radius:14px;
+border-radius:16px;
 font-weight:700;
 cursor:pointer;
 transition:.3s;
 }
 
-button:hover{transform:scale(1.05)}
+button:hover{transform:scale(1.07)}
 
 #exit{background:#ff6f61;color:#fff}
 #visit{background:#6a11cb;color:#fff}
@@ -72,16 +72,19 @@ position:fixed;
 bottom:20px;
 right:20px;
 background:linear-gradient(135deg,#00c6ff,#0072ff);
-padding:16px;
+padding:18px;
 border-radius:30px;
 max-width:260px;
-box-shadow:0 0 25px rgba(0,200,255,.6);
+box-shadow:0 0 25px rgba(0,200,255,.7);
 animation:bounce 2s infinite alternate;
 cursor:pointer;
 z-index:9999;
 }
 
-.buy-bubble h4,.buy-bubble p{margin:0;color:#fff}
+.buy-bubble h4,.buy-bubble p{
+margin:0;
+color:#fff;
+}
 
 /* MODAL */
 .modal{
@@ -89,7 +92,7 @@ position:fixed;
 top:0;left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.7);
+background:rgba(0,0,0,.75);
 display:none;
 align-items:center;
 justify-content:center;
@@ -99,24 +102,36 @@ z-index:10000;
 .modal-content{
 background:#111;
 padding:25px;
-border-radius:20px;
+border-radius:22px;
 max-width:90%;
+position:relative;
 animation:zoomIn .5s ease;
+box-shadow:0 0 30px rgba(0,255,255,.4);
+}
+
+.close-btn{
+position:absolute;
+top:10px;
+right:14px;
+font-size:1.4rem;
+cursor:pointer;
+color:#ff6f61;
 }
 
 .modal-content h3{color:#00ffe5}
-.modal-content p{font-size:.9rem}
+.modal-content p{font-size:.95rem}
 
 .buy-btn{
 background:gold;
 color:#000;
 margin-top:15px;
 width:100%;
+font-size:1.1rem;
 }
 
 .loading{
-margin-top:10px;
-font-weight:700;
+margin-top:12px;
+font-weight:800;
 color:#00ffe5;
 display:none;
 }
@@ -124,21 +139,26 @@ display:none;
 /* ANIMACIONES */
 @keyframes fadeIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1}}
 @keyframes pulse{0%{text-shadow:0 0 5px}50%{text-shadow:0 0 20px}}
-@keyframes bounce{to{transform:translateY(-10px)}}
-@keyframes zoomIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes bounce{to{transform:translateY(-12px)}}
+@keyframes zoomIn{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-<h1>Esta página está suspendida hasta el 27 de enero de 2026</h1>
-<h2>Visita nuestra web oficial:<br>
+<h1>Página suspendida hasta el 27 de enero de 2026</h1>
+
+<h2>
+Visita nuestra web oficial:<br>
 <a href="https://newBrothersStudios.com" target="_blank">newBrothersStudios.com</a>
 </h2>
+
 <h3>
 Seguimos trabajando en:<br>
-<a href="https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/" target="_blank">ROBUX_SHOPING.ORG</a>
+<a href="https://newbrothersstudios.github.io/ROBUX_SHOPING.ORG/" target="_blank">
+ROBUX_SHOPING.ORG
+</a>
 </h3>
 
 <div id="countdown"></div>
@@ -160,9 +180,11 @@ Visitar página
 <!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
+<div class="close-btn" onclick="closeModal()">✕</div>
+
 <h3>Comprar derechos ©️</h3>
 <p>
-Al comprar esta página obtendrás <b>TODOS los derechos ©️</b>,
+Obtendrás <b>TODOS los derechos ©️</b> de la página,
 incluyendo ganancias y propiedad total.
 </p>
 <p><b>Precio: $4,500 DLS</b></p>
@@ -172,32 +194,58 @@ incluyendo ganancias y propiedad total.
 </div>
 </div>
 
+<!-- SONIDOS -->
+<audio id="soundOpen" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+<audio id="soundClick" src="https://assets.mixkit.co/sfx/preview/mixkit-confirmation-tone-2867.mp3"></audio>
+<audio id="soundClose" src="https://assets.mixkit.co/sfx/preview/mixkit-click-error-1110.mp3"></audio>
+
 <script>
-// CONTADOR
+// CRONÓMETRO COMPLETO
 const targetDate=new Date("Jan 27, 2026 00:00:00").getTime();
+
 setInterval(()=>{
-let now=new Date().getTime(),d=targetDate-now;
-if(d<=0)return;
-let days=Math.floor(d/86400000);
-document.getElementById("countdown").innerHTML=`${days} días restantes`;
+const now=new Date().getTime();
+const diff=targetDate-now;
+
+if(diff<=0){
+document.getElementById("countdown").innerText="¡Ya disponible!";
+return;
+}
+
+const d=Math.floor(diff/(1000*60*60*24));
+const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+const m=Math.floor((diff%(1000*60*60))/(1000*60));
+const s=Math.floor((diff%(1000*60))/1000);
+
+document.getElementById("countdown").innerText=
+`${d} días ${h}h ${m}m ${s}s`;
 },1000);
 
 // MODAL
 function openModal(){
+document.getElementById("soundOpen").play();
 document.getElementById("modal").style.display="flex";
 }
 
+function closeModal(){
+document.getElementById("soundClose").play();
+document.getElementById("modal").style.display="none";
+}
+
+// COMPRA
 function buy(){
+document.getElementById("soundClick").play();
 const loading=document.getElementById("loading");
 loading.style.display="block";
+
 let dots=1;
-const interval=setInterval(()=>{
-loading.innerText="Cargando"+". ".repeat(dots);
+const anim=setInterval(()=>{
+loading.innerText="Cargando"+".".repeat(dots);
 dots=dots<3?dots+1:1;
 },700);
 
 setTimeout(()=>{
-clearInterval(interval);
+clearInterval(anim);
 window.open(
 "https://wa.me/50379197720?text=Quiero%20comprar%20Todos%20los%20derechos%20de%20la%20página%20por%20$4,500",
 "_blank"
