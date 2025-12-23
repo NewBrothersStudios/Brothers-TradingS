@@ -1,7 +1,614 @@
-<DOCYTIPE HTML>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>NewBros Trading</title>
 
-<h1>Page not available</h1>
+<style>
+:root{
+ --bg:#0b0b0b;
+ --card:#161616;
+ --orange:#ff8c00;
+ --orange2:#ffae42;
+ --red:#ff3b3b;
+ --green:#2bff88;
+ --blue:#2bb7ff;
+ --yellow:#ffd52b;
+}
 
-<h2>Está página se está actualizando junto con los programadores www.newbrothersstudios.com</h2>
+*{box-sizing:border-box;font-family:system-ui}
 
-<h3>luego de la actualización se volvera a ser Renovada, Gracias por su atención.</h3>
+body{
+ margin:0;
+ background:linear-gradient(180deg,#000,#111);
+ color:#fff;
+}
+
+/* ===== LOGIN ===== */
+#loginScreen{
+ position:fixed;
+ inset:0;
+ background:#000;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ z-index:9999;
+}
+
+.login-card{
+ width:92%;
+ max-width:360px;
+ background:var(--card);
+ padding:26px;
+ border-radius:20px;
+ text-align:center;
+ box-shadow:0 0 30px var(--orange);
+}
+
+.login-card h1{color:var(--orange)}
+
+input{
+ width:100%;
+ padding:14px;
+ margin:10px 0;
+ border:none;
+ border-radius:14px;
+ background:#0a0a0a;
+ color:#fff;
+}
+
+.btn{
+ width:100%;
+ padding:14px;
+ border:none;
+ border-radius:16px;
+ font-weight:bold;
+ background:linear-gradient(135deg,var(--orange),var(--orange2));
+ box-shadow:0 0 18px var(--orange);
+ cursor:pointer;
+}
+
+/* ===== TOP ===== */
+#topBar{
+ position:fixed;
+ top:0;left:0;right:0;
+ background:#0a0a0a;
+ padding:12px;
+ display:flex;
+ justify-content:space-between;
+ z-index:1000;
+}
+
+#balance{color:var(--orange);font-weight:bold}
+
+#buyBtn{
+ background:var(--orange2);
+ padding:8px 14px;
+ border-radius:12px;
+ color:#000;
+ font-weight:bold;
+}
+
+/* ===== APP ===== */
+#app{
+ display:none;
+ padding:70px 12px 160px;
+}
+
+/* ===== CHART ===== */
+#chart{
+ height:220px;
+ background:#000;
+ border-radius:18px;
+ position:relative;
+ overflow:hidden;
+ box-shadow:0 0 25px var(--orange);
+}
+
+.point{
+ position:absolute;
+ width:4px;
+ height:4px;
+ background:var(--orange);
+ border-radius:50%;
+}
+
+/* ===== TIME ===== */
+.timeBox{
+ display:flex;
+ gap:10px;
+ margin-top:14px;
+}
+
+.timeBtn{
+ flex:1;
+ padding:12px;
+ border-radius:14px;
+ background:#111;
+ border:1px solid var(--orange);
+ text-align:center;
+ cursor:pointer;
+}
+
+.timeBtn.active{
+ background:var(--orange);
+ color:#000;
+ animation:pulse .3s;
+}
+
+/* ===== BET ===== */
+.betBox{
+ display:flex;
+ gap:10px;
+ margin-top:14px;
+}
+
+.betBtn{
+ flex:1;
+ height:60px;
+ border-radius:50%;
+ background:radial-gradient(circle,var(--orange2),var(--orange));
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:#000;
+ font-weight:bold;
+ box-shadow:0 0 18px var(--orange);
+ cursor:pointer;
+}
+
+.betBtn.active{transform:scale(1.1)}
+
+.betCustom{
+ display:flex;
+ gap:10px;
+ margin-top:10px;
+}
+
+/* ===== TRADE ===== */
+#tradeBtn{
+ margin-top:14px;
+ background:linear-gradient(135deg,var(--green),var(--orange));
+}
+
+/* ===== RESULT ===== */
+#result{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.85);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ z-index:9000;
+}
+
+.resultCard{
+ background:var(--card);
+ padding:24px;
+ border-radius:20px;
+ width:90%;
+ text-align:center;
+ box-shadow:0 0 25px var(--orange);
+}
+
+/* ===== SHOP ===== */
+#shop{
+ position:fixed;
+ inset:0;
+ background:#000;
+ display:none;
+ padding:80px 16px;
+ overflow:auto;
+ z-index:8000;
+}
+
+.shopCard{
+ background:var(--card);
+ padding:18px;
+ border-radius:18px;
+ margin-bottom:14px;
+ box-shadow:0 0 20px var(--orange);
+}
+
+/* ===== WITHDRAW ===== */
+#withdraw{
+ margin-top:20px;
+ background:var(--card);
+ padding:18px;
+ border-radius:18px;
+ box-shadow:0 0 20px var(--orange);
+}
+
+/* ===== HELP ===== */
+#help{
+ position:fixed;
+ bottom:12px;
+ right:12px;
+ background:var(--orange2);
+ color:#000;
+ padding:10px 14px;
+ border-radius:14px;
+ font-weight:bold;
+}
+
+/* ===== TOUCH ANIMATION ===== */
+.btn,
+.timeBtn,
+.betBtn,
+.shopCard button,
+#buyBtn{
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+
+.btn:active,
+.timeBtn:active,
+.betBtn:active,
+.shopCard button:active,
+#buyBtn:active{
+  transform:scale(0.92);
+  box-shadow:0 0 35px rgba(255,140,0,.9);
+}
+
+/* ===== RIPPLE EFFECT ===== */
+.ripple{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,.5);
+  transform:scale(0);
+  animation:ripple .6s linear;
+}
+
+@keyframes ripple{
+  to{
+    transform:scale(4);
+    opacity:0;
+  }
+}
+/* ================= TIENDA PRO ================= */
+
+#shop h2{
+  text-align:center;
+  margin-bottom:18px;
+  color:#ff9f00;
+  text-shadow:0 0 12px rgba(255,159,0,.9);
+}
+
+/* TARJETA RECARGA */
+.shopCard{
+  position:relative;
+  background:
+    linear-gradient(135deg,#1b0c00,#2a1300);
+  border:2px solid #ff8c00;
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:
+    inset 0 0 18px rgba(255,180,80,.35),
+    0 0 26px rgba(255,140,0,.6);
+
+/* ===== RECARGA PRO CARD ===== */
+.shopCard{
+  position:relative;
+  background:
+    radial-gradient(circle at top,#2a1400,#0a0500);
+  border:2px solid #ff8c00;
+  border-radius:26px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:
+    inset 0 0 20px rgba(255,170,60,.35),
+    0 0 30px rgba(255,140,0,.75);
+  overflow:hidden;
+  animation:cardGlow 3s infinite alternate;
+}
+
+@keyframes cardGlow{
+  from{box-shadow:0 0 18px rgba(255,140,0,.4)}
+  to{box-shadow:0 0 36px rgba(255,170,0,.95)}
+}
+
+/* TEXTO $10 $20 $50 */
+.shopCard{
+  font-size:20px;
+  font-weight:800;
+  color:#ffd58a;
+  text-shadow:0 0 10px rgba(255,170,60,.8);
+}
+
+/* ===== BOTÓN RECARGAR ===== */
+.shopCard button{
+  width:100%;
+  margin-top:14px;
+  padding:16px;
+  border:none;
+  border-radius:18px;
+  font-size:17px;
+  font-weight:900;
+  background:
+    linear-gradient(135deg,#ffcc00,#ff7b00,#ff2a00);
+  color:#000;
+  cursor:pointer;
+  box-shadow:
+    0 0 22px rgba(255,120,0,.9),
+    inset 0 0 14px rgba(255,255,255,.5);
+  transition:.15s;
+}
+
+/* PRESIONAR */
+.shopCard button:active{
+  transform:scale(.92);
+  box-shadow:
+    0 0 40px rgba(255,60,0,1),
+    inset 0 0 20px rgba(255,255,255,.7);
+}
+
+/* ===== INPUT PERSONALIZADO ===== */
+#shop input{
+  width:100%;
+  padding:16px;
+  border-radius:18px;
+  border:none;
+  background:#120700;
+  color:#fff;
+  font-size:16px;
+  box-shadow:inset 0 0 14px rgba(255,140,0,.45);
+}
+
+/* TEXTO 10% */
+#shop small{
+  display:block;
+  margin-top:10px;
+  font-size:14px;
+  color:#ffb347;
+  text-align:center;
+}
+.shopCard::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,200,120,.35),
+    transparent
+  );
+  transform:translateX(-100%);
+  animation:shine 4s infinite;
+}
+
+@keyframes shine{
+  to{transform:translateX(100%)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+ <div class="login-card">
+  <h1>NewBros Trading</h1>
+  <input id="user" placeholder="Usuario">
+  <input id="pass" type="password" placeholder="Contraseña">
+  <button class="btn" onclick="login()">Entrar</button>
+  <div id="error"></div>
+ </div>
+</div>
+
+<!-- TOP -->
+<div id="topBar">
+ <div id="balance">$0.00</div>
+ <div id="buyBtn" onclick="openShop()">Comprar saldo</div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+ <div id="chart"></div>
+
+ <div class="timeBox">
+  <div class="timeBtn" onclick="setTime(5)">5s</div>
+  <div class="timeBtn" onclick="setTime(10)">10s</div>
+  <div class="timeBtn" onclick="setTime(30)">30s</div>
+ </div>
+
+ <div class="betBox">
+  <div class="betBtn" onclick="setBet(1)">$1</div>
+  <div class="betBtn" onclick="setBet(5)">$5</div>
+  <div class="betBtn" onclick="setBet(10)">$10</div>
+  <div class="betBtn" onclick="setBet(20)">$20</div>
+ </div>
+
+ <div class="betCustom">
+  <input id="customBet" type="number" placeholder="Personalizado">
+  <button class="btn" onclick="useCustom()">Usar</button>
+ </div>
+
+ <button id="tradeBtn" class="btn" onclick="startTrade()">INICIAR TRADE</button>
+
+ <div id="withdraw">
+  <h3>💸 Retirar dinero</h3>
+  <p>Mínimo $100</p>
+  <input id="withdrawAmount" type="number" placeholder="Monto">
+  <button class="btn" onclick="withdraw()">Retirar</button>
+ </div>
+
+</div>
+
+<!-- RESULT -->
+<div id="result">
+ <div class="resultCard" id="resultText"></div>
+</div>
+
+<!-- SHOP -->
+<div id="shop">
+ <h2>Recargar saldo</h2>
+
+ <div class="shopCard">$10 <button onclick="wa('Recarga $10')">Recargar</button></div>
+ <div class="shopCard">$20 <button onclick="wa('Recarga $20')">Recargar</button></div>
+ <div class="shopCard">$50 <button onclick="wa('Recarga $50')">Recargar</button></div>
+
+ <div class="shopCard">
+  <input id="customAmount" type="number" placeholder="Personalizado">
+  <small>Se cobrará 10% más</small>
+  <button onclick="customWA()">Recargar</button>
+ </div>
+
+ <button class="btn" onclick="shop.style.display='none'">Cerrar</button>
+</div>
+
+<div id="help" onclick="help()">¿Necesitas ayuda?</div>
+
+<script>
+/* ===== USERS ===== */
+const users=[
+ {u:"Levittochimi56",p:"levitiñochimino561",b:6},
+ {u:"Jonathan9091",p:"Jonansa812",b:6},
+ {u:"Brianzmx17",p:"Brianazx87",b:6},
+ {u:"NicolAZX881",p:"NICOA192",b:6},
+ {u:"STEV172991",p:"Stevnc8114",b:6},
+ {u:"Andersxn2012",p:"ANDERSXN9182",b:6}
+];
+
+let current=null,bet=0,time=0,trading=false;
+
+/* ===== LOGIN ===== */
+function login(){
+ const u=user.value,p=pass.value;
+ const f=users.find(x=>x.u===u&&x.p===p);
+ if(!f){error.textContent="Datos incorrectos";return;}
+ current=f;
+ const saved=localStorage.getItem("bal_"+u);
+ if(saved)current.b=parseFloat(saved);
+ loginScreen.style.display="none";
+ app.style.display="block";
+ updateBalance();
+}
+
+/* ===== BALANCE ===== */
+function updateBalance(){
+ balance.textContent="$"+current.b.toFixed(2);
+ localStorage.setItem("bal_"+current.u,current.b);
+}
+
+/* ===== TIME & BET ===== */
+function setTime(t){time=t}
+function setBet(v){bet=v}
+function useCustom(){bet=parseFloat(customBet.value)||0}
+
+
+function startTrade(){
+ if(trading || bet <= 0 || time <= 0 || bet > current.b) return;
+
+ // 🔒 Si el saldo ya es 0, no deja tradear
+ if(current.b === 0){
+   alert("No tienes saldo disponible");
+   return;
+ }
+
+ trading = true;
+
+ setTimeout(()=>{
+  const win = Math.random() < 0.3;
+  const diff = bet;
+
+  // Sumar o restar
+  current.b += win ? diff : -diff;
+
+  // 🔴 FORZAR SIEMPRE A 0.00
+  if(current.b <= 0){
+    current.b = 0;
+  }
+
+  resultText.innerHTML = `
+   <h2>${win ? "GANASTE" : "OUT"}</h2>
+   <p>Beneficio: ${win ? "+" : "-"}$${diff}</p>
+   <p>Tiempo: ${time}s</p>
+   <p>Balance: $${current.b.toFixed(2)}</p>
+  `;
+
+  updateBalance();
+
+  // 🔴 REINICIAR APUESTA SIEMPRE
+  bet = 0;
+  if(customBet) customBet.value = "";
+
+  result.style.display = "flex";
+
+  setTimeout(()=>{
+    result.style.display = "none";
+    trading = false;
+  },3000);
+
+ }, time * 1000);
+}
+/* ===== CHART ===== */
+let y=110;
+setInterval(()=>{
+ const p=document.createElement("div");
+ p.className="point";
+ y+=Math.random()>0.5?10:-10;
+ y=Math.max(0,Math.min(210,y));
+ p.style.left="100%";
+ p.style.top=y+"px";
+ chart.appendChild(p);
+ let x=100;
+ const i=setInterval(()=>{
+  x-=2;p.style.left=x+"%";
+  if(x<0){p.remove();clearInterval(i)}
+ },30);
+},300);
+
+/* ===== SHOP / HELP ===== */
+function openShop(){shop.style.display="block"}
+function wa(t){window.open("https://wa.me/50373826693?text="+encodeURIComponent(t))}
+function customWA(){
+ let v=customAmount.value;
+ wa("Recarga personalizada $"+v+" (+10%)");
+}
+function help(){
+ const t=prompt("Escribe tu duda");
+ if(t)wa("Hubo un problema: "+t);
+}
+
+/* ===== WITHDRAW ===== */
+function withdraw(){
+ const a=parseFloat(withdrawAmount.value);
+ if(a<100||a>current.b)return alert("Monto inválido");
+ wa(`Retiro solicitado Usuario:${current.u} Monto:$${a}`);
+}
+
+/* ===== RIPPLE TOUCH EFFECT ===== */
+document.addEventListener("click",e=>{
+  const target=e.target.closest(".btn,.timeBtn,.betBtn,.shopCard button,#buyBtn");
+  if(!target)return;
+
+  const ripple=document.createElement("span");
+  ripple.className="ripple";
+  const rect=target.getBoundingClientRect();
+
+  ripple.style.left=(e.clientX-rect.left)+"px";
+  ripple.style.top=(e.clientY-rect.top)+"px";
+  ripple.style.width=ripple.style.height=Math.max(rect.width,rect.height)+"px";
+
+  target.style.position="relative";
+  target.style.overflow="hidden";
+  target.appendChild(ripple);
+
+  setTimeout(()=>ripple.remove(),600);
+});
+
+/* ===== RECARGAR TOUCH FX ===== */
+document.querySelectorAll(".shopCard button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    btn.animate([
+      {transform:"scale(1)",boxShadow:"0 0 20px #ff8c00"},
+      {transform:"scale(0.9)",boxShadow:"0 0 45px #ff4500"},
+      {transform:"scale(1)",boxShadow:"0 0 25px #ffaa00"}
+    ],{duration:300});
+  });
+});
+</script>
+</body>
+</html>
