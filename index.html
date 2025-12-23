@@ -98,23 +98,6 @@ button:hover{
   100%{text-shadow: 0 0 5px #00ffe5;}
 }
 </style>
-<script>
-// Bloquear recarga de página
-window.addEventListener("beforeunload", function (e) {
-    e.preventDefault();
-    e.returnValue = "⚠️ No intentes Reiniciar la Página ⚠️";
-    // Este texto aparece en Chrome como aviso nativo
-});
-
-// Opcional: overlay para mensaje personalizado
-window.addEventListener("keydown", function(e){
-    // Evitar F5 o Ctrl+R
-    if((e.key === "F5") || (e.ctrlKey && e.key === "r")){
-        e.preventDefault();
-        alert("⚠️ No intentes Reiniciar la Página ⚠️");
-    }
-});
-</script>
 </head>
 <body>
 
@@ -157,6 +140,24 @@ function updateCountdown(){
 
 const interval = setInterval(updateCountdown, 1000);
 updateCountdown();
+</script>
+
+<script>
+// Bloquear recarga de página
+window.addEventListener("beforeunload", function (e) {
+    e.preventDefault();
+    e.returnValue = "⚠️ No intentes Reiniciar la Página ⚠️";
+    // Este texto aparece en Chrome como aviso nativo
+});
+
+// Opcional: overlay para mensaje personalizado
+window.addEventListener("keydown", function(e){
+    // Evitar F5 o Ctrl+R
+    if((e.key === "F5") || (e.ctrlKey && e.key === "r")){
+        e.preventDefault();
+        alert("⚠️ No intentes Reiniciar la Página ⚠️");
+    }
+});
 </script>
 
 </body>
