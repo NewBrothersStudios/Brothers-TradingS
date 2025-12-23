@@ -14,45 +14,44 @@ body {
   background: linear-gradient(135deg, #1f1c2c, #928dab);
   color: #fff;
   display:flex;
-  justify-content:center;
-  align-items:flex-start;
+  flex-direction:column;
+  align-items:center;
   min-height:100vh;
   text-align:center;
   overflow-x:hidden;
-  padding-top:40px;
 }
 
 .container{
   background: rgba(0,0,0,0.7);
-  padding:40px;
+  padding:30px 20px;
   border-radius:20px;
   box-shadow: 0 0 40px rgba(255,255,255,0.2);
-  max-width:800px;
-  margin-bottom:40px;
+  max-width:90%;
+  margin-top:40px;
   animation: fadeIn 1.5s ease forwards;
 }
 
 h1,h2,h3{
-  margin:20px 0;
+  margin:15px 0;
   line-height:1.4;
-  animation: slideIn 1.5s ease forwards;
 }
 
-h1{font-size:2.2rem; color:#ff6f61;}
-h2{font-size:1.6rem; color:#ffb347;}
-h3{font-size:1.2rem; color:#ffd97d;}
+h1{font-size:1.8rem; color:#ff6f61;}
+h2{font-size:1.3rem; color:#ffb347;}
+h3{font-size:1rem; color:#ffd97d;}
 
-a{color:inherit; text-decoration:underline;}
+a{color:inherit; text-decoration:underline; word-break: break-word;}
 
 .buttons{
-  margin-top:30px;
+  margin-top:20px;
   display:flex;
   justify-content:center;
-  gap:20px;
+  gap:15px;
+  flex-wrap: wrap;
 }
 
 button{
-  padding:14px 28px;
+  padding:12px 20px;
   font-size:1rem;
   font-weight:600;
   border:none;
@@ -62,8 +61,8 @@ button{
 }
 
 button:hover{
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(255,255,255,0.4);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
 
 #exit{
@@ -76,14 +75,9 @@ button:hover{
   color:#fff;
 }
 
-#buyRights{
-  background:#00c6ff;
-  color:#000;
-}
-
 #countdown{
-  font-size:2rem;
-  margin-top:25px;
+  font-size:1.8rem;
+  margin-top:20px;
   font-weight:700;
   color:#00ffe5;
   animation: pulse 1.5s infinite;
@@ -95,37 +89,66 @@ button:hover{
   to{opacity:1; transform: translateY(0);}
 }
 
-@keyframes slideIn{
-  from{opacity:0; transform: translateX(-50px);}
-  to{opacity:1; transform: translateX(0);}
-}
-
 @keyframes pulse{
   0%{text-shadow: 0 0 5px #00ffe5;}
   50%{text-shadow: 0 0 20px #00ffe5;}
   100%{text-shadow: 0 0 5px #00ffe5;}
 }
 
-/* Sección comprar derechos */
-.rights-section{
-  background: rgba(0,0,0,0.6);
-  padding:30px;
-  border-radius:20px;
-  max-width:800px;
-  margin-bottom:40px;
-  box-shadow: 0 0 40px rgba(255,255,255,0.2);
-  animation: fadeIn 2s ease forwards;
+/* BURBUJA FLOTA COMPRA DERECHOS */
+.buy-bubble {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 260px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #000;
+  padding: 16px 18px;
+  border-radius: 30px;
+  box-shadow: 0 0 25px rgba(0,200,255,0.6);
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap:8px;
+  z-index: 9999;
+  animation: bubbleBounce 2s infinite alternate;
 }
 
-.rights-section h2{
-  color:#ffb347;
-}
-
-.rights-section p{
+.buy-bubble h4{
+  margin:0;
   font-size:1rem;
-  line-height:1.5;
   color:#fff;
-  margin:15px 0;
+}
+
+.buy-bubble p{
+  font-size:0.85rem;
+  color:#fff;
+  line-height:1.2;
+}
+
+.buy-bubble button{
+  padding:8px 16px;
+  font-size:0.9rem;
+  font-weight:700;
+  border:none;
+  border-radius:16px;
+  background:#ffeb3b;
+  color:#000;
+  cursor:pointer;
+  align-self:flex-end;
+  transition: transform 0.2s;
+}
+
+.buy-bubble button:hover{
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255,235,59,0.6);
+}
+
+@keyframes bubbleBounce{
+  from{transform: translateY(0);}
+  to{transform: translateY(-10px);}
 }
 
 </style>
@@ -149,11 +172,11 @@ button:hover{
   </div>
 </div>
 
-<div class="rights-section">
-  <h2>Comprar derechos de la página ©️</h2>
-  <p>Al tocar el botón de compra obtendrás todos los derechos ©️ de esta página. Esto incluye todas las ganancias y la propiedad completa de todo el contenido.</p>
-  <p><strong>Precio de compra: $4,999</strong></p>
-  <button id="buyRights" onclick="alert('Está página al ser comprada obtendrás todos los derechos ©️ de la página, incluyendo las ganancias. Todo será tuyo.')">Comprar = $4,999</button>
+<!-- Burbuja flotante comprar derechos -->
+<div class="buy-bubble" onclick="alert('Está página al ser comprada obtendrás todos los derechos ©️ de la página, incluyendo todas las ganancias. Todo será tuyo.')">
+  <h4>🗨️ Comprar derechos de la página ©️</h4>
+  <p>Al tocar el botón de compra obtendrás todos los derechos de esta página, incluyendo todas las ganancias y la propiedad completa de todo el contenido.</p>
+  <button>Comprar = $4,999</button>
 </div>
 
 <script>
